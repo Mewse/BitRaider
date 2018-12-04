@@ -1,0 +1,12 @@
+.drive {
+    display: inline-block;
+    width: 300px;
+    background-color: #222222;
+    color: cyan;
+    font-family: monospace;
+    height: 50vh;
+}
+
+.drive-item {
+    list-style: none;
+}
