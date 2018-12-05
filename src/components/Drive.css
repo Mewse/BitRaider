@@ -1,12 +1,39 @@
 .drive {
     display: inline-block;
-    width: 300px;
+    width: 100px;
     background-color: #222222;
     color: cyan;
     font-family: monospace;
-    height: 50vh;
+    border: 1px solid cyan;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+}
+
+.drive table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.drive table td:first-child {
+    border-right: 1px solid yellow;
 }
 
 .drive-item {
     list-style: none;
+}
+
+.drive-data {
+    text-align: center;
+}
+
+.drive-data:hover {
+    background-color: blue;
+    color: yellow;
+    cursor: pointer;
+}
+
+.drive-index {
+    color: orangered;
+    padding: 0 2px;
 }

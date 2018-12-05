@@ -1,0 +1,25 @@
+.drive-container {
+    display: inline-flex;
+}
+
+.data-input {
+    background-color: #222222;
+    color: cyan;
+    font-family: monospace;
+    border: 1px solid lightgray;
+    padding: 5px;
+    width: 30vw;
+}
+
+.data-submit {
+    background-color: #222222;
+    color: lightgreen;
+    padding: 5px 20px;
+    margin-left: 5px;
+    border: 1px solid lightgray;
+}
+
+.data-submit:hover {
+    color: white;
+    background-color: red;
+}

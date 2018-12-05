@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './BitRaiderApp.css';
 import Drive from '../components/Drive';
 
 const RAID = {
@@ -38,7 +38,7 @@ class BitRaiderApp extends React.Component {
                 parityChunks: [{startAddress: "2x0", length: 16}]
             }
         },
-        driveSize: 64,
+        driveSize: 32,
         driveStates: {
             "1": STATES.HEALTHY,
             "2": STATES.HEALTHY,
@@ -77,15 +77,15 @@ class BitRaiderApp extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <Drive data={this.state.data['1']} />
-                    <Drive data={this.state.data['2']} />
-                    <Drive data={this.state.data['3']} />
-                    <Drive data={this.state.data['4']} />
+                <div className="drive-container">
+                    <Drive size={this.state.driveSize} data={this.state.data['1']} />
+                    <Drive size={this.state.driveSize} data={this.state.data['2']} />
+                    <Drive size={this.state.driveSize} data={this.state.data['3']} />
+                    <Drive size={this.state.driveSize} data={this.state.data['4']} />
                 </div>
                 <div>
-                    <input type="text"/>
-                    <input type="submit"/>
+                    <input className="data-input" type="text" placeholder="Enter text to write to HDD" />
+                    <input className="data-submit" type="submit" value="Write" onClick={this.write.bind(this)}/>
                 </div>
             </div>
         )
