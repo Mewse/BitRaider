@@ -10,7 +10,7 @@ const Drive = (props) => {
                         const data = props.data[index] === undefined ? "-" : props.data[index];
                         return (  
                             <tr key={index} className="drive-item">
-                                <td className="drive-index">0x{index}</td>
+                                <td className="drive-index">0x{index.toString(16)}</td>
                                 <td className="drive-data">{data}</td>
                             </tr>
                         )
