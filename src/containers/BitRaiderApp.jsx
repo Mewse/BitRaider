@@ -53,7 +53,7 @@ class BitRaiderApp extends React.Component {
         },
         numDrives: 4,
         writeHeads: {"0": 0, "1":0, "2":0, "3":0},
-        driveHead: 0,
+        driveHead: "0",
         lastWrite: 1,
         raidType: RAID.TYPE_5,
         raidTypes: Object.keys(RAID),
@@ -68,8 +68,7 @@ class BitRaiderApp extends React.Component {
     }
 
     write(data) {
-        this.stripe(data, ["0", "2", "3"]);
-
+        this.stripe(data, ["0", "2", "3"], "1");
         // Determine parity drive
         // While data to write, loop through drives writing
             // Record indexes of data
@@ -84,20 +83,33 @@ class BitRaiderApp extends React.Component {
 
     }
 
-    stripe(data, drives) {
-        let index = this.state.driveHead;
+    /**
+     * Stripe data across multiple arrays at byte level
+     * @param {String} data Data to write
+     * @param {String[]} drives Drives to write to 
+     * @param {String} parityDrive Drive to use for dynamic parity. Not used for static parity drive
+     */
+    stripe(data, drives, parityDrive) {
+        let index = drives.indexOf(this.state.driveHead);
         let writeHeads = this.state.writeHeads;
         let dataArray = data.split('');
         let driveData = this.state.data;
+        let parity = 0;
         while (dataArray.length > 0) {
-            driveData[drives[index]][writeHeads[index]] = this.lpad(dataArray.shift().charCodeAt(0).toString(2), 8);
-            writeHeads[index]++;
+            let char = this.lpad(dataArray.shift().charCodeAt(0).toString(2), 8);
+            driveData[drives[index]][writeHeads[index]] = char;
+            writeHeads[drives[index]]++;
+            parity = parity ^ parseInt(char, 2);
             index = (index + 1) % drives.length;
         }
+
+        driveData[parityDrive][writeHeads[parityDrive]] = "p_" + this.lpad(parity.toString(2), 8);
+        writeHeads[parityDrive]++;
+
         this.setState({
             data: driveData,
             writeHeads: writeHeads,
-            driveHead: index
+            driveHead: drives[index]
         });
     }
 
